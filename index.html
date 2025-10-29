@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AIS UAT estado</title>
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .status {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .available {
+        color: #4caf50;
+      }
+      .unavailable {
+        color: #f44336;
+      }
+      .date {
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="status" class="status">Cargando</div>
+    <div id="date" class="date"></div>
+
+    <script>
+      fetch("estado.txt")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("No se pudo cargar el archivo de estado");
+          }
+          return response.text();
+        })
+        .then((data) => {
+          const lines = data.trim().split("\n");
+          if (lines.length > 0) {
+            const firstLine = lines[0].trim();
+            const parts = firstLine.split(" ");
+            if (parts.length >= 2) {
+              const statusCode = parts[0];
+              const dateStr = parts[1];
+              const statusDiv = document.getElementById("status");
+              const dateDiv = document.getElementById("date");
+              if (statusCode === "1") {
+                statusDiv.textContent = "DISPONIBLE";
+                statusDiv.classList.add("available");
+              } else if (statusCode === "0") {
+                statusDiv.textContent = "NO DISPONIBLE";
+                statusDiv.classList.add("unavailable");
+              } else {
+                statusDiv.textContent = "Estado desconocido";
+              }
+              dateDiv.textContent = dateStr;
+            } else {
+              document.getElementById("status").textContent =
+                "Formato de archivo incorrecto";
+            }
+          } else {
+            document.getElementById("status").textContent =
+              "Archivo de estado vacío";
+          }
+        })
+        .catch((error) => {
+          document.getElementById("status").textContent =
+            "Error al cargar el estado: " + error.message;
+        });
+    </script>
+  </body>
+</html>
