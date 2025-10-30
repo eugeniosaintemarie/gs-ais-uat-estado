@@ -27,7 +27,6 @@ git rev-parse --is-inside-work-tree >nul 2>&1 || (
 
 git fetch origin >nul 2>&1
 
-REM Incorporar historia de gh-pages en main para evitar rechazos en push
 git merge origin/gh-pages --allow-unrelated-histories --no-edit >nul 2>&1
 
 set "HAS_CHANGES="
