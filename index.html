@@ -37,7 +37,7 @@
     <div id="date" class="date"></div>
 
     <script>
-      fetch("estado.txt")
+      fetch("estado.txt", { cache: "no-cache" })
         .then((response) => {
           if (!response.ok) {
             throw new Error("No se pudo cargar el archivo de estado");
