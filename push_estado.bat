@@ -13,14 +13,14 @@ if /I "%~1"=="--verbose" set "VERBOSE=1"
 
 git --version >nul 2>&1 || (
   echo Git no esta instalado o no esta en PATH
-  call :pauseif
+  pause
   popd
   exit /b 1
 )
 
 git rev-parse --is-inside-work-tree >nul 2>&1 || (
   echo Este directorio no es un repositorio git
-  call :pauseif
+  pause
   popd
   exit /b 1
 )
@@ -37,7 +37,7 @@ if defined HAS_CHANGES (
     echo No se pudo crear el commit. Puede que no haya cambios staged o haya otro problema
     echo Salida de git status --porcelain:
     git status --porcelain
-    call :pauseif
+    pause
     popd
     exit /b 1
   )
@@ -46,7 +46,7 @@ if defined HAS_CHANGES (
   git push origin gh-pages
   if errorlevel 1 (
     echo git push fallo. Revisa tu conexión o credenciales
-    call :pauseif
+    pause
     popd
     exit /b 1
   ) else (
