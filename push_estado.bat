@@ -40,8 +40,9 @@ if defined HAS_CHANGES (
     exit /b 1
   )
 
-  call :echomsg "Empujando a origin/gh-pages..."
-  git push origin gh-pages
+  for /f "tokens=4 delims=/" %%d in ('git symbolic-ref refs/remotes/origin/HEAD') do set "DEFAULT_BRANCH=%%d"
+  call :echomsg "Empujando a origin/%DEFAULT_BRANCH%..."
+  git push origin %DEFAULT_BRANCH%
   if errorlevel 1 (
     echo git push fallo. Revisa tu conexión o credenciales
     call :pauseif
