@@ -44,7 +44,7 @@ if defined HAS_CHANGES (
 
   for /f "delims=" %%b in ('git rev-parse --abbrev-ref HEAD') do set "CURRENT_BRANCH=%%b"
   call :echomsg "Empujando %CURRENT_BRANCH% a origin/gh-pages..."
-  git push origin %CURRENT_BRANCH%:gh-pages
+  git push --force-with-lease origin %CURRENT_BRANCH%:gh-pages
   if errorlevel 1 (
     echo git push fallo. Revisa tu conexión o credenciales
     pause
