@@ -25,6 +25,8 @@ git rev-parse --is-inside-work-tree >nul 2>&1 || (
   exit /b 1
 )
 
+git fetch origin >nul 2>&1
+
 set "HAS_CHANGES="
 for /f "delims=" %%i in ('git status --porcelain') do set "HAS_CHANGES=1"
 
