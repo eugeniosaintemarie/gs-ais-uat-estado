@@ -31,7 +31,7 @@ for /f "delims=" %%i in ('git status --porcelain') do set "HAS_CHANGES=1"
 if defined HAS_CHANGES (
   call :echomsg "Hay cambios locales — preparando commit..."
   git add -A
-  git commit -m "actualización de estado" || (
+  git commit -m "actualizacion de estado" || (
     echo No se pudo crear el commit. Puede que no haya cambios staged o haya otro problema
     echo Salida de git status --porcelain:
     git status --porcelain
