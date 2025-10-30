@@ -33,50 +33,7 @@
     </style>
   </head>
   <body>
-    <div id="status" class="status">Cargando</div>
-    <div id="date" class="date"></div>
-
-    <script>
-      fetch("estado.txt", { cache: "no-cache" })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("No se pudo cargar el archivo de estado");
-          }
-          return response.text();
-        })
-        .then((data) => {
-          const lines = data.trim().split("\n");
-          if (lines.length > 0) {
-            const firstLine = lines[0].trim();
-            const parts = firstLine.split(" ");
-            if (parts.length >= 2) {
-              const statusCode = parts[0];
-              const dateStr = parts[1];
-              const statusDiv = document.getElementById("status");
-              const dateDiv = document.getElementById("date");
-              if (statusCode === "1") {
-                statusDiv.textContent = "DISPONIBLE";
-                statusDiv.classList.add("available");
-              } else if (statusCode === "0") {
-                statusDiv.textContent = "NO DISPONIBLE";
-                statusDiv.classList.add("unavailable");
-              } else {
-                statusDiv.textContent = "Estado desconocido";
-              }
-              dateDiv.textContent = dateStr;
-            } else {
-              document.getElementById("status").textContent =
-                "Formato de archivo incorrecto";
-            }
-          } else {
-            document.getElementById("status").textContent =
-              "Archivo de estado vacío";
-          }
-        })
-        .catch((error) => {
-          document.getElementById("status").textContent =
-            "Error al cargar el estado: " + error.message;
-        });
-    </script>
+    <div id="status" class="status">DISPONIBLE</div>
+    <div id="date" class="date">1/8/2032</div>
   </body>
 </html>
